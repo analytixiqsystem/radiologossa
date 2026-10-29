@@ -30,12 +30,20 @@ export function layout({ title, description, path, noindex = false, body }) {
     <meta property="og:image" content="${absolute(withBase('brand/logo.png'))}" />
     <link rel="icon" type="image/png" sizes="32x32" href="${asset('brand/favicon-32.png')}" />
     <link rel="apple-touch-icon" href="${asset('brand/apple-touch-icon.png')}" />
+    <meta name="theme-color" content="#0294db" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    />
     <script>${raw(motionFlag)}</script>
     <link rel="stylesheet" href="/src/main.css" />
     <script type="module" src="/src/main.js"></script>
   </head>
-  <body class="antialiased">
-    <main id="contenido">${body}</main>
+  <body class="bg-canvas font-sans text-ink-900 antialiased">
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <main id="contenido" tabindex="-1">${body}</main>
   </body>
 </html>
 `.toString();

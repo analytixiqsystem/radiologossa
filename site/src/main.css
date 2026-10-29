@@ -4,20 +4,237 @@
 @source '../../templates';
 @source '../../content';
 
-/* Tokens de diseño: se definen en la fase 3 a partir del logo y del sistema de diseño de ui-ux-pro-max. */
+/* ============================================================
+   Tokens — Radiólogos Asociados Barrancabermeja
+   Base: azul del logo (#0294DB) + navy para texto; verde solo para WhatsApp/agendar.
+   Tipografía (ui-ux-pro-max "Medical Clean"): Figtree + Noto Sans.
+   ============================================================ */
 @theme {
+  --font-display: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Noto Sans', ui-sans-serif, system-ui, sans-serif;
+
+  /* Azul de marca (logo). brand-500 solo para gráficos e iconos grandes: no cumple 4.5:1 como texto */
+  --color-brand-50: #eef8fe;
+  --color-brand-100: #d6eefb;
+  --color-brand-200: #ade0f7;
+  --color-brand-400: #33b2ea;
+  --color-brand-500: #0294db;
+  /* brand-600/700: texto, enlaces y botones (contraste AA sobre blanco) */
+  --color-brand-600: #0a6fad;
+  --color-brand-700: #0b5a8c;
+  --color-brand-900: #0a2f4d;
+
+  --color-ink-900: #0b2540;
+  --color-ink-700: #2a4560;
+  --color-ink-500: #536a80;
+
+  /* Verde WhatsApp / agendar (AA con texto blanco) */
+  --color-go-600: #15803d;
+  --color-go-700: #166534;
+
+  --color-canvas: #f5f9fc;
+  --color-line: #dce8f1;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;
     }
   }
+  body {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
   :focus-visible {
-    outline: 3px solid currentColor;
+    outline: 3px solid var(--color-brand-600);
+    outline-offset: 3px;
+    border-radius: 0.5rem;
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    border-radius: 0.75rem;
+    background: var(--color-brand-600);
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    transition: top 0.2s;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-brand-600);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 9999px;
+    background: var(--color-brand-500);
+    box-shadow: 0 0 0 4px var(--color-brand-100);
+  }
+
+  /* ---------- Botones ---------- */
+  .btn {
+    display: inline-flex;
+    min-height: 3rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border-radius: 9999px;
+    padding-inline: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      box-shadow 0.25s,
+      transform 0.2s var(--ease-out-expo);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn-primary {
+    background: var(--color-brand-600);
+    color: #fff;
+    box-shadow: 0 12px 26px -14px var(--color-brand-600);
+  }
+  .btn-primary:hover {
+    background: var(--color-brand-700);
+  }
+  .btn-go {
+    background: var(--color-go-600);
+    color: #fff;
+    box-shadow: 0 12px 26px -14px var(--color-go-600);
+  }
+  .btn-go:hover {
+    background: var(--color-go-700);
+  }
+  .btn-outline {
+    border: 1.5px solid var(--color-line);
+    background: #fff;
+    color: var(--color-ink-900);
+  }
+  .btn-outline:hover {
+    border-color: var(--color-brand-400);
+    color: var(--color-brand-700);
+  }
+
+  /* ---------- Tarjetas de acción rápida ---------- */
+  .action-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--color-line);
+    background: rgb(255 255 255 / 0.85);
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    transition:
+      transform 0.35s var(--ease-out-expo),
+      box-shadow 0.35s var(--ease-out-expo),
+      border-color 0.3s;
+  }
+  .action-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-brand-200);
+    box-shadow: 0 24px 48px -28px rgb(11 37 64 / 0.45);
+  }
+  .action-card:has(a:focus-visible) {
+    outline: 3px solid var(--color-brand-600);
     outline-offset: 3px;
   }
+  .action-card a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .action-card a:focus-visible {
+    outline: none;
+  }
+
+  /* ---------- Hero: fondo clínico con rejilla y línea de escaneo ---------- */
+  .scan-grid {
+    background-image: radial-gradient(circle, rgb(2 148 219 / 0.16) 1.2px, transparent 1.6px);
+    background-size: 26px 26px;
+    mask-image: radial-gradient(ellipse 70% 65% at 50% 38%, #000 30%, transparent 78%);
+  }
+  .scan-beam {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 90px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(2 148 219 / 0.04) 75%,
+      rgb(2 148 219 / 0.12) 97%,
+      rgb(2 148 219 / 0.28) 100%
+    );
+    opacity: 0;
+    will-change: transform;
+  }
+
+  /* ---------- Logo animado ---------- */
+  .logo-anim {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  /* Escalas desde el centro de cada pieza. Los giros (trébol, electrón) se hacen con el atributo
+     transform="rotate(a cx cy)" desde main.js, porque el centro de su caja no es el centro del núcleo. */
+  .logo-anim .lg-sat,
+  .logo-anim .lg-core,
+  .logo-anim .lg-orbit-dot,
+  .logo-anim .lg-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .logo-anim .lg-pulse,
+  .logo-anim .lg-electron {
+    opacity: 0;
+  }
+}
+
+/* Estados iniciales de animación (solo con JS y sin "reducir movimiento") */
+.motion [data-hero-item],
+.motion [data-reveal],
+.motion [data-logo-anim] .lg-sat,
+.motion [data-logo-anim] .lg-core,
+.motion [data-logo-anim] .lg-orbit-dot,
+.motion [data-logo-anim] .lg-comet,
+.motion [data-logo-anim] .lg-wordmark {
+  opacity: 0;
+}
+.motion [data-logo-anim] .lg-bond,
+.motion [data-logo-anim] .lg-swoosh {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
