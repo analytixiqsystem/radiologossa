@@ -1,0 +1,11 @@
+node_modules/
+dist/
+
+# Páginas generadas por scripts/generate.mjs (la fuente está en /content y /templates)
+site/**/*.html
+site/.generated.json
+site/public/sitemap.xml
+site/public/robots.txt
+
+# Capturas de pruebas de navegador
+.playwright-mcp/

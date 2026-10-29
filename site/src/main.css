@@ -1,0 +1,31 @@
+@import 'tailwindcss';
+
+/* Las clases viven en las plantillas JS (fuera de la raíz de Vite) */
+@source '../../templates';
+@source '../../content';
+
+/* Tokens de diseño: se definen en la fase 3 a partir del logo y del sistema de diseño de ui-ux-pro-max. */
+@theme {
+}
+
+@layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  :focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
