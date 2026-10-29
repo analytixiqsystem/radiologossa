@@ -1,4 +1,4 @@
-import { html } from '../html.js';
+import { html, cx } from '../html.js';
 import { icon } from '../icons.js';
 import { layout, clinicJsonLd } from '../layout.js';
 import { paths, asset } from '../paths.js';
@@ -185,19 +185,65 @@ function testimonialsBlock() {
         ${sectionHeader({ id: 'opiniones-title', eyebrow: 'Opiniones', title: 'Lo que dicen nuestros pacientes' })}
         <div class="shrink-0" data-reveal>${button({ href: site.reviewUrl, label: 'Calificar en Google', variant: 'outline', iconName: 'star', external: true })}</div>
       </div>
-      <div class="mt-10 grid gap-4 lg:grid-cols-2" data-reveal-group>
+      ${testimonialCarousel()}
+    `,
+  });
+}
+
+// Tarjetas apiladas en 3D + cita que aparece palabra a palabra (inspirado en "Circular Testimonials" de 21st.dev).
+// Sin fotos de pacientes: cada tarjeta es un panel de marca con la inicial de quien opina.
+const pad = (n) => String(n).padStart(2, '0');
+function testiPosition(offset, total) {
+  if (offset === 0) return 'center';
+  if (offset === 1) return 'right';
+  if (offset === total - 1) return 'left';
+  return 'hidden';
+}
+function testimonialCarousel() {
+  const total = testimonials.length;
+  return html`
+    <div class="testi mt-10 grid items-center gap-10 lg:mt-14 lg:grid-cols-[1fr_1.1fr] lg:gap-16" data-testimonials data-reveal>
+      <div class="testi-stage" aria-hidden="true">
         ${testimonials.map(
-          (t) => html`
-            <figure class="relative rounded-3xl border border-line bg-canvas p-7 sm:p-8" data-reveal-item>
-              ${icon('quote', 'absolute top-6 right-6 size-10 text-brand-200')}
-              <blockquote class="pr-10 text-lg leading-relaxed text-ink-700">“${t.quote}”</blockquote>
-              <figcaption class="mt-5 font-display font-bold text-ink-900">${t.author}</figcaption>
-            </figure>
+          (t, i) => html`
+            <div class="testi-card" data-testi-card data-pos="${testiPosition(i, total)}">
+              <div class="testi-face">
+                <span class="testi-dots"></span>
+                <span class="testi-ring size-[26rem]"></span>
+                <span class="testi-ring size-[17rem]"></span>
+                <span class="testi-ring size-[9rem]"></span>
+                ${icon('quote', 'relative size-11 text-white/45')}
+                <span class="relative mt-auto block font-display text-[6.5rem] leading-none font-extrabold text-white sm:text-[8rem]">${t.author.charAt(0)}</span>
+                <span class="relative mt-3 block text-sm font-semibold tracking-wide text-brand-100 uppercase">${t.author}</span>
+              </div>
+            </div>
           `,
         )}
       </div>
-    `,
-  });
+      <div class="min-w-0">
+        <div class="grid" data-testi-live aria-live="off">
+          ${testimonials.map(
+            (t, i) => html`
+              <figure class="${cx('[grid-area:1/1]', i && 'invisible')}" data-testi-quote>
+                <figcaption>
+                  <p class="font-display text-2xl font-bold text-ink-900">${t.author}</p>
+                  <p class="mt-1 text-ink-500">Opinión de paciente</p>
+                </figcaption>
+                <blockquote class="mt-6 text-lg leading-relaxed text-ink-700 sm:text-xl">
+                  <p>${`“${t.quote}”`.split(' ').map((w) => html`<span class="tw-word">${w}</span> `)}</p>
+                </blockquote>
+              </figure>
+            `,
+          )}
+        </div>
+        <div class="mt-9 flex items-center gap-3">
+          <button type="button" class="testi-arrow" data-testi-prev aria-label="Opinión anterior">${icon('chevron-right', 'size-5 rotate-180')}</button>
+          <button type="button" class="testi-arrow" data-testi-next aria-label="Opinión siguiente">${icon('chevron-right', 'size-5')}</button>
+          <p class="ml-3 font-display text-sm font-semibold text-ink-500 tabular-nums"><span class="text-ink-900" data-testi-count>01</span> / ${pad(total)}</p>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function visitBlock() {

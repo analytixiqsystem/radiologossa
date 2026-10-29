@@ -479,6 +479,100 @@
   .logo-anim .lg-electron {
     opacity: 0;
   }
+
+  /* ---------- Opiniones: tarjetas apiladas en 3D ---------- */
+  .testi-stage {
+    position: relative;
+    height: 21rem;
+    perspective: 1000px;
+  }
+  @media (min-width: 640px) {
+    .testi-stage {
+      height: 25rem;
+    }
+  }
+  .testi-card {
+    position: absolute;
+    inset-block: 0;
+    left: 16%;
+    width: 68%;
+  }
+  .testi-card[data-pos='center'] {
+    z-index: 3;
+    transform: none;
+  }
+  .testi-card[data-pos='right'],
+  .testi-card[data-pos='left'] {
+    z-index: 2;
+    filter: saturate(0.7) brightness(0.93);
+  }
+  .testi-card[data-pos='right'] {
+    transform: translateX(28%) translateY(-6%) scale(0.85) rotateY(-15deg);
+  }
+  .testi-card[data-pos='left'] {
+    transform: translateX(-28%) translateY(-6%) scale(0.85) rotateY(15deg);
+  }
+  .testi-card[data-pos='hidden'] {
+    z-index: 1;
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  .testi-face {
+    position: relative;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 1.75rem;
+    padding: 1.75rem;
+    background: linear-gradient(150deg, var(--color-brand-500), var(--color-brand-600) 45%, var(--color-brand-900));
+    box-shadow: 0 30px 60px -30px rgb(11 37 64 / 0.6);
+  }
+  .testi-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgb(255 255 255 / 0.22) 1.2px, transparent 1.6px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 80% 70% at 85% 15%, #000 15%, transparent 70%);
+  }
+  .testi-ring {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: 9999px;
+    translate: 45% 45%;
+  }
+  .testi-arrow {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 9999px;
+    background: var(--color-ink-900);
+    color: #fff;
+    cursor: pointer;
+    transition:
+      background-color 0.3s,
+      scale 0.2s;
+  }
+  .testi-arrow:hover {
+    background: var(--color-brand-600);
+  }
+  .testi-arrow:active {
+    scale: 0.94;
+  }
+  .tw-word {
+    display: inline-block;
+  }
+}
+
+/* El rebote de las tarjetas solo con movimiento permitido */
+.motion .testi-card {
+  transition:
+    transform 0.8s cubic-bezier(0.4, 2, 0.3, 1),
+    opacity 0.6s,
+    filter 0.8s;
 }
 
 /* Estados iniciales de animación (solo con JS y sin "reducir movimiento") */

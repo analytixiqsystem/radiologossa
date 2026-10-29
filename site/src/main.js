@@ -211,6 +211,51 @@ $$('[data-prep-finder]').forEach((finder) => {
   }
 });
 
+/* ---------- Opiniones: tarjetas en 3D + cita palabra a palabra ---------- */
+$$('[data-testimonials]').forEach((widget) => {
+  const cards = $$('[data-testi-card]', widget);
+  const quotes = $$('[data-testi-quote]', widget);
+  const live = widget.querySelector('[data-testi-live]');
+  const count = widget.querySelector('[data-testi-count]');
+  const total = cards.length;
+  let active = 0;
+  let timer;
+
+  const position = (offset) => (offset === 0 ? 'center' : offset === 1 ? 'right' : offset === total - 1 ? 'left' : 'hidden');
+  const show = (i) => {
+    active = (i + total) % total;
+    cards.forEach((c, j) => (c.dataset.pos = position((j - active + total) % total)));
+    // Todas las citas ocupan la misma celda: la altura no salta al cambiar
+    quotes.forEach((q, j) => q.classList.toggle('invisible', j !== active));
+    count.textContent = String(active + 1).padStart(2, '0');
+    if (!motionOn) return;
+    const q = quotes[active];
+    animate(q.querySelector('figcaption'), { opacity: [0, 1], y: [-12, 0] }, { duration: 0.4, ease });
+    animate($$('.tw-word', q), { opacity: [0, 1], y: [5, 0], filter: ['blur(10px)', 'blur(0px)'] }, { duration: 0.22, delay: stagger(0.025), ease: 'easeInOut' });
+  };
+  // Cambio automático cada 6 s; se detiene del todo cuando la persona interactúa
+  const stop = () => {
+    clearInterval(timer);
+    timer = null;
+    live.setAttribute('aria-live', 'polite');
+  };
+  const go = (step) => (stop(), show(active + step));
+  widget.querySelector('[data-testi-prev]').addEventListener('click', () => go(-1));
+  widget.querySelector('[data-testi-next]').addEventListener('click', () => go(1));
+  widget.addEventListener('keydown', (e) => {
+    const step = { ArrowLeft: -1, ArrowRight: 1 }[e.key];
+    if (step) go(step);
+  });
+  widget.addEventListener('pointerenter', stop);
+  widget.addEventListener('focusin', stop);
+  if (motionOn && total > 1) {
+    inView(widget, () => {
+      if (live.getAttribute('aria-live') === 'off') timer = setInterval(() => show(active + 1), 6000);
+      return () => clearInterval(timer);
+    });
+  }
+});
+
 /* ---------- Formularios (contacto y PQRS) ---------- */
 const MESSAGES = {
   valueMissing: 'Este campo es obligatorio.',
