@@ -51,6 +51,31 @@ export const site = {
     guideUrl: 'https://drive.google.com/file/d/1m4vPfVhYf-YY7zCThRikymDe4-jFtbPJ/view?usp=sharing',
   },
   reviewUrl: 'https://g.page/r/CQMQ0TkkYKtfEBM/review',
+  privacyPolicyPdf: 'documentos/politica-tratamiento-datos.pdf',
+
+  // 8 preparaciones del sitio actual indican medicamentos con dosis. Mientras la dirección médica no
+  // autorice publicarlas, esas líneas se reemplazan por un aviso (ver docs/auditoria-sitio-actual.md §6).
+  publishMedication: false,
+  medicationNotice:
+    'Esta preparación incluye medicamentos. Le entregaremos el protocolo con la formulación al agendar su cita.',
+
+  // PENDIENTE: servicio que recibe los formularios (Formspree, Power Automate, API propia...).
+  // Sin endpoint, los formularios validan los datos y muestran los canales alternos.
+  forms: { contactEndpoint: '', pqrsEndpoint: '' },
+  pqrs: {
+    documentTypes: [
+      'Cédula de ciudadanía',
+      'Cédula de extranjería',
+      'Pasaporte',
+      'Tarjeta de identidad',
+      'Registro civil',
+      'NIT',
+      'Carné diplomático',
+      'Permiso especial de permanencia',
+      'Otro documento',
+    ],
+    requestTypes: ['Petición', 'Queja', 'Reclamo', 'Sugerencia'],
+  },
   social: {
     facebook: 'https://www.facebook.com/radiologos.asociados.5/',
     instagram: 'https://www.instagram.com/radiologos.asociados.5/',

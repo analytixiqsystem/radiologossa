@@ -5,6 +5,7 @@ from pathlib import Path
 data = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
 for x in data:
     x["texto"] = [t for t in x["texto"] if not re.search(r"\s-\s*Radi[oó]logos Barrancabermeja\s*$", t)]
+    x["nombre"] = x["nombre"][:1].upper() + x["nombre"][1:]  # algunas fichas vienen en minúscula
     del x["categorias"]
 data.sort(key=lambda x: (x["servicios"][0], x["nombre"].lower()))
 

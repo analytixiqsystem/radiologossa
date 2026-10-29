@@ -1834,7 +1834,7 @@ export const examenes = [
   },
   {
     "slug": "urografia-excretora",
-    "nombre": "urografía excretora",
+    "nombre": "Urografía excretora",
     "servicios": [
       "urografia-excretora"
     ],
