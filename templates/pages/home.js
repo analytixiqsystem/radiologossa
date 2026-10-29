@@ -149,7 +149,7 @@ function doctorsBlock() {
     label: 'medicos-title',
     body: html`
       ${sectionHeader({ id: 'medicos-title', eyebrow: 'Equipo médico', title: 'Nuestros médicos especialistas en imágenes diagnósticas' })}
-      <div class="mt-10 grid gap-4 sm:grid-cols-2" data-reveal-group>${doctors.map((d) => doctorCard(d, doctorsRole))}</div>
+      <div class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4" data-reveal-group>${doctors.map((d) => doctorCard(d, doctorsRole))}</div>
     `,
   });
 }

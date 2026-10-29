@@ -24,12 +24,13 @@ export const reasons = [
   { icon: 'heart', title: 'Enfoque centrado en usted', text: 'Su salud y bienestar son nuestras prioridades: nos tomamos el tiempo para escuchar sus inquietudes y resolver sus dudas.' },
 ];
 
-// Especialidad, registro y foto pendientes de confirmar (la foto del sitio actual no coincide en un caso)
+// Fotos del sitio actual (288×340). La foto del Dr. Julio se llamaba "doctor-alvaro-1.png" en WordPress;
+// se verificó por su posición en la tarjeta del sitio actual. Especialidad y registro pendientes de confirmar.
 export const doctors = [
-  { name: 'Álvaro Pio Rodado Galindo' },
-  { name: 'Julio David Evan Knepper' },
-  { name: 'Carlos Augusto Rendón Ruíz' },
-  { name: 'German Ardila Durán' },
+  { name: 'Álvaro Pio Rodado Galindo', photo: 'medicos/alvaro-pio-rodado-galindo.webp' },
+  { name: 'Julio David Evan Knepper', photo: 'medicos/julio-david-evan-knepper.webp' },
+  { name: 'Carlos Augusto Rendón Ruíz', photo: 'medicos/carlos-augusto-rendon-ruiz.webp' },
+  { name: 'German Ardila Durán', photo: 'medicos/german-ardila-duran.webp' },
 ];
 export const doctorsRole = 'Especialista en imágenes diagnósticas';
 

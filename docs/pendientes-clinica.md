@@ -17,7 +17,7 @@ Datos que el sitio nuevo necesita confirmar antes de publicarse como sitio ofici
 
 ## Contenido
 
-8. **Médicos:** especialidad, registro y foto de cada uno. ¿Son 4 o hay más? (el sitio actual dice "7+").
+8. **Médicos:** especialidad y registro de cada uno. ¿Son 4 o hay más? (el sitio actual dice "7+"). Las fotos se tomaron del sitio actual (la del Dr. Julio se llamaba `doctor-alvaro-1.png`; se verificó por su posición en la tarjeta): confirmar que estén correctas o enviar fotos nuevas.
 9. **Cifras:** el sitio nuevo **no** publica "22+ años", "80k+ pacientes", "7+ doctores" ni "15+ aliados" hasta confirmarlas. Sí publica "desde 2010" (dato de *Nosotros*).
 10. **Testimonio 1:** en el sitio actual aparece firmado "Identidad tienda"; se muestra como "Paciente". Confirmar autor o reemplazar.
 11. **Derechos y deberes de los pacientes:** falta el documento (aparece como pendiente en *Atención al usuario*).

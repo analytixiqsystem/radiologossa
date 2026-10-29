@@ -281,12 +281,14 @@ export function doctorCard(doctor, role) {
     .map((w) => w[0])
     .join('');
   return html`
-    <article class="flex items-center gap-4 rounded-3xl border border-line bg-white p-5" data-reveal-item>
-      <span class="grid size-16 shrink-0 place-items-center rounded-2xl bg-brand-100 font-display text-xl font-extrabold text-brand-700" aria-hidden="true">${initials}</span>
-      <span>
-        <span class="block font-display text-lg font-bold text-ink-900">${doctor.name}</span>
-        <span class="text-ink-500">${doctor.role || role}</span>
-      </span>
+    <article class="overflow-hidden rounded-3xl border border-line bg-white" data-reveal-item>
+      ${doctor.photo
+        ? html`<img src="${asset(doctor.photo)}" alt="Dr. ${doctor.name}" width="288" height="340" loading="lazy" class="aspect-[288/340] w-full bg-brand-100 object-cover" />`
+        : html`<span class="grid aspect-[288/340] w-full place-items-center bg-brand-100 font-display text-5xl font-extrabold text-brand-700" aria-hidden="true">${initials}</span>`}
+      <div class="p-5">
+        <h3 class="font-display text-lg leading-snug font-bold text-ink-900">${doctor.name}</h3>
+        <p class="mt-1 text-sm text-ink-500">${doctor.role || role}</p>
+      </div>
     </article>
   `;
 }
