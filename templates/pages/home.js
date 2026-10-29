@@ -207,15 +207,27 @@ function testimonialCarousel() {
         ${testimonials.map(
           (t, i) => html`
             <div class="testi-card" data-testi-card data-pos="${testiPosition(i, total)}">
-              <div class="testi-face">
-                <span class="testi-dots"></span>
-                <span class="testi-ring size-[26rem]"></span>
-                <span class="testi-ring size-[17rem]"></span>
-                <span class="testi-ring size-[9rem]"></span>
-                ${icon('quote', 'relative size-11 text-white/45')}
-                <span class="relative mt-auto block font-display text-[6.5rem] leading-none font-extrabold text-white sm:text-[8rem]">${t.author.charAt(0)}</span>
-                <span class="relative mt-3 block text-sm font-semibold tracking-wide text-brand-100 uppercase">${t.author}</span>
-              </div>
+              ${t.avatar
+                ? html`
+                    <div class="testi-face testi-face--avatar">
+                      <span class="testi-dots"></span>
+                      <span class="testi-ring size-[26rem]"></span>
+                      <span class="testi-ring size-[17rem]"></span>
+                      ${icon('quote', 'relative size-10 text-brand-500/50')}
+                      <img src="${asset(t.avatar)}" alt="" loading="lazy" class="absolute inset-x-0 bottom-0 mx-auto h-[86%] w-auto max-w-[94%] object-contain object-bottom" />
+                    </div>
+                  `
+                : html`
+                    <div class="testi-face">
+                      <span class="testi-dots"></span>
+                      <span class="testi-ring size-[26rem]"></span>
+                      <span class="testi-ring size-[17rem]"></span>
+                      <span class="testi-ring size-[9rem]"></span>
+                      ${icon('quote', 'relative size-11 text-white/45')}
+                      <span class="relative mt-auto block font-display text-[6.5rem] leading-none font-extrabold text-white sm:text-[8rem]">${t.author.charAt(0)}</span>
+                      <span class="relative mt-3 block text-sm font-semibold tracking-wide text-brand-100 uppercase">${t.author}</span>
+                    </div>
+                  `}
             </div>
           `,
         )}

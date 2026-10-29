@@ -40,11 +40,13 @@ export const testimonials = [
     quote:
       'El servicio de Radiólogos es excelente y el personal muy competente; la dificultad de lo que hacen requiere tiempo y son únicos en Barrancabermeja. Gracias por prestar el mejor servicio de resonancia. Y referente a los tiempos, muy cumplidos en la entrega de los resultados.',
     author: 'Paciente',
+    avatar: 'opiniones/avatar-hombre.webp', // ilustración, no es la foto del paciente
   },
   {
     quote:
       'Excelente lugar en Barrancabermeja para atención en cuanto a mamografía, ecografía y Doppler, urografía, densitometría ósea, tomografía axial computarizada, entre otros, con gran calidad en el servicio y excelentes profesionales que garantizan resultados confiables.',
     author: 'Andrea del Pilar',
+    avatar: 'opiniones/avatar-mujer.webp',
   },
 ];
 
